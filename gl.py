@@ -1,6 +1,7 @@
 import struct
 from collections import namedtuple
 import numpy as np
+import glMath as gm
 
 from math import cos, sin, tan, pi
 
@@ -187,14 +188,14 @@ class Raytracer(object):
                 Py = ((y + 0.5 - self.vpY) / self.vpHeight) * 2 - 1
 
                 # Proyeccion
-                t = tan((self.fov * np.pi / 180) / 2) * self.nearPlane
+                t = tan((self.fov * pi / 180) / 2) * self.nearPlane
                 r = t * self.vpWidth / self.vpHeight
 
                 Px *= r
                 Py *= t
 
                 direction = V3(Px, Py, -self.nearPlane)
-                direction = direction / np.linalg.norm(direction)
+                direction = gm.norm(direction)
 
                 rayColor = self.cast_ray(self.camPosition, direction)
 

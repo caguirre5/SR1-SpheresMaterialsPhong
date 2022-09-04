@@ -1,7 +1,9 @@
 import numpy as np
+import glMath as gm
 
-WHITE = (1,1,1)
-BLACK = (0,0,0)
+WHITE = (1, 1, 1)
+BLACK = (0, 0, 0)
+
 
 class Intersect(object):
     def __init__(self, distance, point, normal, sceneObj):
@@ -10,8 +12,9 @@ class Intersect(object):
         self.normal = normal
         self.sceneObj = sceneObj
 
+
 class Material(object):
-    def __init__(self, diffuse = WHITE):
+    def __init__(self, diffuse=WHITE):
         self.diffuse = diffuse
 
 
@@ -38,13 +41,13 @@ class Sphere(object):
             t0 = t1
         if t0 < 0:
             return None
-        
+
         # P = O + t0 * D
         P = np.add(orig, t0 * np.array(dir))
         normal = np.subtract(P, self.center)
-        normal = normal / np.linalg.norm(normal)
+        normal = gm.norm(normal)
 
-        return Intersect(distance = t0,
-                         point = P,
-                         normal = normal,
-                         sceneObj = self)
+        return Intersect(distance=t0,
+                         point=P,
+                         normal=normal,
+                         sceneObj=self)
